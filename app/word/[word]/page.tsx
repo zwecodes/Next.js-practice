@@ -7,7 +7,7 @@ type Props = {
 export default async function WordPage({ params }: Props) {
     const { word } = await params;
 
-    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    const res = await fetch(`http://localhost:3000/api/word/${word}`);
     
     if (!res.ok) {
         return (
