@@ -18,7 +18,12 @@ export default async function RootLayout({
       <body className="bg-gray-50 min-h-screen">
         <nav className="bg-white border-b px-8 py-4 flex justify-between items-center" >
           <a href="/" className="font-bold text-xl">📖 Dictionary</a>
-          <div>
+          <div className="flex items-center gap-4">
+            {session && (
+              <a href="/saved" className="text-blue-500 hover:underline">
+                Saved Words
+              </a>
+            )}
             {session ? (
               <form action={async () => {
                 "use server";

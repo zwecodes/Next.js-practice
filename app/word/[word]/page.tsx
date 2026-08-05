@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { saveWord } from '../../actions/saveWord';
+import { auth } from '@/auth';
 
 type Props = {
     params: Promise<{ word: string }>;
@@ -7,6 +8,7 @@ type Props = {
 
 export default async function WordPage({ params }: Props) {
     const { word } = await params;
+    const session = await auth();
 
     const res = await fetch(`http://localhost:3000/api/word/${word}`);
     
@@ -44,15 +46,19 @@ export default async function WordPage({ params }: Props) {
                 </div>
             ))}
             
-            <form action={saveWord}>
-                <input type="hidden" name="word" value={entry.word} />
-                <button
-                 type="submit"
-                 className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
-                 >
-                    Save Word
-                </button>
-            </form>
+            {session ? (
+                <form action={saveWord}>
+                    <input type="hidden" name="word" value={entry.word} />
+                    <button
+                        type="submit"
+                        className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
+                    >
+                        Save Word
+                    </button>
+                </form>
+            ) : (
+                    <p className="text-gray-500">Sign in to save words</p>
+            )}
         </div>
     )
 }
