@@ -12,10 +12,10 @@ export default async function WordPage({ params }: Props) {
     
     if (!res.ok) {
         return (
-        <>
-            <p>Word "{word}" not found.</p>
-            <Link href='/'>Back to Home</Link>
-        </>
+            <div className="max-w-2xl mx-auto p-8">
+                <Link href="/" className="text-blue-500 hover:underline">← Back</Link>
+                <p className="mt-4 text-red-500">Word "{word}" not found.</p>
+            </div>
         
         )
     }
@@ -24,15 +24,35 @@ export default async function WordPage({ params }: Props) {
     const entry = data[0];
 
     return(
-        <div>
-            <h1>{entry.word}</h1>
-            <p>{entry.meanings[0].definitions[0].definition}</p>
+        <div className="max-w-2xl mx-auto p-8">
+            <Link href="/" className="text-blue-500 hover:underline">← Back</Link>
 
+            <h1 className="text-4xl font-bold mt-4 mb-2">{entry.word}</h1>
+            <p className="text-gray-500 mb-6">{entry.meanings[0].definitions[0].definition}</p>
+
+            {entry.meanings.map((meaning: any, index: number) => (
+                <div key={index} className="mb-6 p-4 bg-white rounded-lg border">
+                    <h3 className="text-blue-500 font-semibold italic mb-2">
+                        {meaning.partOfSpeech}
+                    </h3>
+                    <p>{meaning.definitions[0].definition}</p>
+                    {meaning.definitions[0].example && (
+                        <p className="text-gray-500 mt-2 italic">
+                            "{meaning.definitions[0].example}"
+                        </p>
+                    )}
+                </div>
+            ))}
+            
             <form action={saveWord}>
                 <input type="hidden" name="word" value={entry.word} />
-                <button type="submit">Save Word</button>
+                <button
+                 type="submit"
+                 className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
+                 >
+                    Save Word
+                </button>
             </form>
-            <Link href='/'>Back to Home</Link>
         </div>
     )
 }

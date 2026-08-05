@@ -13,17 +13,21 @@ export default function SearchHistory() {
 
     return (
         <div>
-            <h3>Recent Searches</h3>
+            <h3 className="text-lg font-semibold mb-3">Recent Searches</h3>
             {history.length === 0 ? (
-                <p>No recent searches</p>
+                <p className="text-gray-400">No recent searches</p>
             ) : (
-                <ul>
+                <div>
                     {history.map((word, index) => (
-                        <li key={index}>
-                            <Link href={`/word/${word}`}>{word}</Link>
-                        </li>
+                        <Link
+                            key={index}
+                            href={`/word/${word}`}
+                            className="bg-white border rounded-full px-4 py-1 text-sm hover:bg-blue-50 hover:border-blue-300"
+                        >
+                        {word}
+                        </Link>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     )

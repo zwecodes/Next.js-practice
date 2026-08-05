@@ -1,11 +1,9 @@
 "use server";
 
-export async function saveWord(formData: FormData) {
+export async function saveWord(formData: FormData): Promise<void> {
     const word = formData.get('word') as string;
 
-    if (!word) return { error: 'No word provided'};
+    if (!word) return;
 
     console.log(`Saving word: ${word}`);
-
-    return { success: true, word };
 }

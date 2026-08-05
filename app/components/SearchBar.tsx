@@ -21,14 +21,19 @@ export default function SearchBar() {
     };
 
     return (
-        <div>
+        <div className="flex gap-2 mb-8">
             <input
                 value={input}
                 onChange={e => setInput(e.target.value.toLowerCase())}
                 onKeyDown={e => e.key === 'Enter' && handleSearch()}
                 placeholder = "Search a word...."
             />
-            <button onClick={handleSearch}>Search</button>
+            <button
+                onClick={handleSearch}
+                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
+            >
+                Search
+                </button>
         </div>
     )
 }
